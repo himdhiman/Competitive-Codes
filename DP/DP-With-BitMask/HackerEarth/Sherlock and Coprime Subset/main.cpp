@@ -3,24 +3,34 @@
 using namespace std;
 
 const int N = 100;
+vector<int> primes = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47}; 
 int arr[N];
-int ALL_VISITED;
+int VISITED_ALL;
+int dp[1<<16][51];
 
-int solve(int mask, int n, int i){
-	if(mask == ALL_VISITED || i == n){
+int solve(int mask, int n, int cnt){
+	if(cnt == n || mask == VISITED_ALL){
 		return 0;
 	}
-	int q = solve(mask, n, i+1);	
-	int ans = INT_MIN;
-	for(int j = 0; j < n; j++){
-		if((mask&(1<<j)) == 0){
-			if(__gcd(arr[i], arr[j]) == 1){
-				int temp = 1 + solve(mask|(1<<j), n, i+1);
-				ans = max(ans, max(temp, q));
+	if(dp[mask][cnt] != -1){
+		return dp[mask][cnt];
+	}
+	if(arr[cnt] == 1){
+		return dp[mask][cnt] = 1 + solve(mask, n, cnt+1);
+	}
+	int temp = mask;
+	bool state = false;
+	for(int i = 0; i < primes.size(); i++){
+		if((arr[cnt] % primes[i]) == 0){
+			if((temp&(1<<i))){
+				return dp[mask][cnt] = solve(mask, n, cnt+1);
+			}else{
+				temp = (temp|(1<<i));
 			}
 		}
 	}
-	return ans;
+	// max of include and exclude
+	return dp[mask][cnt] = max(1 + solve(temp, n, cnt+1), solve(mask, n, cnt+1));	
 }
 
 
@@ -41,8 +51,9 @@ int32_t main(){
 		for(int i = 0; i < n; i++){
 			cin>>arr[i];
 		}
-		ALL_VISITED = (1<<n)-1;
-		cout<<solve(0, n, 0);
+		memset(dp, -1, sizeof dp);
+		VISITED_ALL = (1<<n)-1;
+		cout<<solve(0, n, 0)<<endl;
 	}
 	
 
