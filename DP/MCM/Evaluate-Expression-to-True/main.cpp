@@ -22,7 +22,7 @@ int solve(string s, int i, int j, bool isTrue){
 
 	int ans = 0;
 	for(int k = i+1; k <= j-1; k += 2){
-		int lt = solve(s, i, k-1 ,true);
+		int lt = solve(s, i, k-1, true);
 		int lf = solve(s, i, k-1, false);
 		int rt = solve(s, k+1, j, true);
 		int rf = solve(s, k+1, j, false);
@@ -65,7 +65,9 @@ int32_t main(){
 	getline(cin, s);
 	memset(dp, -1, sizeof(dp));
 
-	cout<<solve(s, 0, s.length()-1, true);
+	// cout<<solve(s, 0, s.length()-1, true);
+	cout<<solve(s, 2, 4, false);
 
 	return 0;
 }
+//F|T^T&F
