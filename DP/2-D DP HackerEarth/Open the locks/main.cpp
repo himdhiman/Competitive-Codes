@@ -32,7 +32,6 @@ int32_t main(){
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif 
-	s.insert(1);
 	s.insert(2);
 	s.insert(3);
 	s.insert(5);
