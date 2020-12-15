@@ -65,8 +65,8 @@ int32_t main(){
 	getline(cin, s);
 	memset(dp, -1, sizeof(dp));
 
-	// cout<<solve(s, 0, s.length()-1, true);
-	cout<<solve(s, 2, 4, false);
+	cout<<solve(s, 0, s.length()-1, true);
+	// cout<<solve(s, 2, 4, false);
 
 	return 0;
 }
