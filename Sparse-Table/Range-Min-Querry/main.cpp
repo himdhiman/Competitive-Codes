@@ -28,7 +28,7 @@ struct SparseTable{
 		// int pow = p2[r-l];
 		// return min(mat[l][pow], mat[r-(1<<pow)+1][pow]);
 		int ans = INT_MAX;
-		for(int i = n; i >= 0; i--){
+		for(int i = m; i >= 0; i--){
 			if(l + (1<<i) - 1 <= r){
 				ans = min(ans, mat[l][i]);
 				l += (1<<i);
