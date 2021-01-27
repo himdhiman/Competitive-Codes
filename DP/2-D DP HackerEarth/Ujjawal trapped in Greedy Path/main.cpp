@@ -6,7 +6,7 @@ using namespace std;
 const int N = 1005;
 int arr[N][N];
 int r, c;
-int fibo[1000000];
+int fibo[N];
 
 bool isValid(int i, int j){
 	if(i >= 0 and i < r and j >= 0 and j < c){
@@ -26,11 +26,11 @@ int fib(int n){
 }
 
 int solve(int i, int j){
-	if(i == r-1){
+	if(i == r){
 		return 0;
 	}
 	int ans1 = INT_MIN, ans2 = INT_MIN;
-	int a = __gcd(fib(i), fib(j));
+	int a = __gcd(fib(i+1), fib(j+1));
 	if(a%2){
 		if(isValid(i+1, j+1)){
 			ans1 = arr[i][j] + solve(i+1, j+1);
@@ -67,11 +67,10 @@ int32_t main(){
 		}
 	} 
 	int ans = INT_MIN;
-	for(int i = 0; i < r; i++){
+	for(int i = 0; i < c; i++){
 		ans = max(ans, solve(0, i));
 	}
 	cout<<ans;
-	// cout<<fib(1000);
 
 
 	return 0;

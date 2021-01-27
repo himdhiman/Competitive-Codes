@@ -20,7 +20,6 @@ void dfs(int current, int parent, int cost){
 		par[current][j] = par[par[current][j-1]][j-1];
 		mn[current][j] = min(mn[current][j-1], mn[par[current][j-1]][j-1]);
 		mx[current][j] = max(mx[current][j-1], mx[par[current][j-1]][j-1]);
-
 	}
 	for(auto x : gr[current]){
 		auto child = x.first;
@@ -41,7 +40,7 @@ int lca(int u, int v){
 	}
 
 	int diff = depth[u]-depth[v];
-	for(int i = M-1; i >= 0; i--){
+	for(int i = M; i >= 0; i--){
 		if((diff>>i)&1){
 			u = par[u][i];
 		}
@@ -50,7 +49,7 @@ int lca(int u, int v){
 		return u;
 	}
 
-	for(int i = M-1; i >= 0; i--){
+	for(int i = M; i >= 0; i--){
 		if(par[u][i] != par[v][i]){
 			u = par[u][i];
 			v = par[v][i];
