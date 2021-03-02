@@ -13,20 +13,20 @@ int32_t main(){
 		freopen("output.txt", "w", stdout);
 	#endif 
 
-	int n;
-	cin>>n;
+	int n1, n2;
+	cin>>n1>>n2;
 
-	vector<int> A(n), B(n);
+	vector<int> A(n1), B(n2);
 
-	for(int i = 0; i < n; i++){
+	for(int i = 0; i < n1; i++){
 		cin>>A[i];
 	}
-	for(int i = 0; i < n; i++){
+	for(int i = 0; i < n2; i++){
 		cin>>B[i];
 	}
 
-	int n1 = n;
-	int n2 = n;
+	// int n1 = n;
+	// int n2 = n;
 
 	int start = 0;
 	int end = n1;
