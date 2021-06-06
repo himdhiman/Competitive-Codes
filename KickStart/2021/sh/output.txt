@@ -1,0 +1,26 @@
+aaaa
+baab
+caac
+daad
+eaae
+abba
+bbbb
+cbbc
+dbbd
+ebbe
+acca
+bccb
+cccc
+dccd
+ecce
+adda
+bddb
+cddc
+dddd
+edde
+aeea
+beeb
+ceec
+deed
+eeee
+Case #1: 25

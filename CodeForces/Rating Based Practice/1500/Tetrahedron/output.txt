@@ -1,0 +1,4 @@
+D A B A B D 
+D A B A C D 
+D A B C A D 
+60
