@@ -6,33 +6,41 @@ using namespace std;
 const int N = 100005;
 int arr[N];
 
-int solve(string s, int n, int prev, vector<int> &v){
-	if(n == 0){
-		v.push_back(prev);
-		return 1;
-	}
-
-	if((s[n-1] == '1' and prev == 1) or (s[n-1] == '0' and prev == 0)){
-		return solve(s, n-1, prev);
-	}
-
-	// exclude
-	int ans1 = solve(s, n-1, prev);
-
-	// include
-	int ans2 = 0;
-	v.push_back(prev);
-	if(s[n-1] == '?'){
-		if(prev == 0){
-			ans1 = solve(s, n-1, 1);
-		}else{
-			ans2 = solve(s, n-1, 0);
-		}
+void solve(){
+	string s;
+	cin>>s;
+	int n = s.length();
+	int dp[n][2];
+	memset(dp, 0, sizeof dp);
+	if(s[n-1] == '0'){
+		dp[n-1][0] = 1;
 	}else{
-		ans1 = solve(s, n-1, !prev); 
+		dp[n-1][1] = 1;
 	}
-	v.pop_back();
-	return ans1+ans2;
+	int ans = max(dp[n-1][0], dp[n-1][1]);
+	for(int i = n-2; i >= 0; i--){
+		if(s[i] == '1'){
+			dp[i][1] = dp[i+1][0] + 1;
+			dp[i][0] = dp[i+1][0];
+		}else if(s[i] == '0'){
+			dp[i][0] = dp[i+1][1] + 1;
+			dp[i][1] = dp[i+1][1];
+		}else{
+			dp[i][0] = dp[i+1][1] + 1;
+			dp[i][1] = dp[i+1][0] + 1;
+		}
+
+		ans += max(dp[i][0], dp[i][1]);
+	}
+	for(int i = 0; i < n; i++){
+		cout<<dp[i][0]<<" ";
+	}
+	cout<<endl;
+	for(int i = 0; i < n; i++){
+		cout<<dp[i][1]<<" ";
+	}
+	cout<<endl;
+	cout<<ans<<endl;
 }
 
 
@@ -45,14 +53,6 @@ int32_t main(){
 #endif 
 	int t;
 	cin>>t;
-	while(t--){
-		string s;
-		cin>>s;
-		vector<int> v;
-		cout<<solve(s, s.length(), 0, v) + solve(s, s.length(), 1, v)<<endl;
-	}
-	
-
-
+	while(t--) solve();
 	return 0;
 }

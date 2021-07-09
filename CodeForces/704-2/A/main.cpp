@@ -4,19 +4,19 @@
 using namespace std;
 
 
-int32_t main(){
+int32_t main() {
 
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
-#endif 
+#endif
 
 	int t;
-	cin>>t;
-	while(t--){
+	cin >> t;
+	while (t--) {
 		int k, a, b, c;
-		cin>>k>>a>>b>>c;
-		cout<<min(a*ceil((k/(float)a)), min(b*ceil((k/(float)b)), c*ceil((k/(float)c)))) - k<<endl;
+		cin >> k >> a >> b >> c;
+		cout << min((a - k % a) % a, min((b - k % b) % b, (c - k % c) % c)) << endl;
 		// cout<<ans<<endl;
 	}
 	return 0;

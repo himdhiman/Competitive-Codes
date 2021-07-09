@@ -1,0 +1,6 @@
+Positive
+Negative
+Positive
+Negative
+Positive
+0

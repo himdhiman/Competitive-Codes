@@ -3,7 +3,7 @@
 #define MOD 1000000007
 using namespace std;
 
-const int N = 100005;
+const int N = 1000005;
 int arr[N];
 
 // int solve(int n){
@@ -20,51 +20,51 @@ int arr[N];
 // 	return max(dp[0][n-1], dp[1][n-1]);
 // }
 
-int solve4(int n){
-	int dp[2001][2001];
-	for(int i = 0; i <= 2000; i++){
-		for(int j = 0; j <= 2000; j++){
-			dp[i][j] = INT_MIN;
-		}
-	}
-	dp[1][0] = 0;
-	dp[1][1] = (arr[1] >= 0 ? arr[1] : 0);
+// int solve4(int n){
+// 	int dp[2001][2001];
+// 	for(int i = 0; i <= 2000; i++){
+// 		for(int j = 0; j <= 2000; j++){
+// 			dp[i][j] = INT_MIN;
+// 		}
+// 	}
+// 	dp[1][0] = 0;
+// 	dp[1][1] = (arr[1] >= 0 ? arr[1] : 0);
 
-	for(int i = 2; i <= n; i++){
-		for(int j = 0; j <= i; j++){
-			if((dp[i-1][j-1] + arr[i]) >= 0){
-				dp[i][j] = max(dp[i-1][j-1] + arr[i], dp[i-1][j]);
-			}else{
-				dp[i][j] = dp[i-1][j];
-			}
-			// dp[i][j] = ((dp[i-1][j-1]+arr[i]) >= 0 ? dp[i-1][j-1]+arr[i] : dp[i-1][j]);
-		}
-	}
-	int idx = 0;
-	int val = dp[n+1][0];
-	for(int i = 1; i <= arr[n]; i++){
-		if(dp[n+1][i] >= val){
-			val = dp[n+1][i];
-			idx = i;
-		}
-	}
-	return idx;
-}
+// 	for(int i = 2; i <= n; i++){
+// 		for(int j = 0; j <= i; j++){
+// 			if((dp[i-1][j-1] + arr[i]) >= 0){
+// 				dp[i][j] = max(dp[i-1][j-1] + arr[i], dp[i-1][j]);
+// 			}else{
+// 				dp[i][j] = dp[i-1][j];
+// 			}
+// 			// dp[i][j] = ((dp[i-1][j-1]+arr[i]) >= 0 ? dp[i-1][j-1]+arr[i] : dp[i-1][j]);
+// 		}
+// 	}
+// 	int idx = 0;
+// 	int val = dp[n+1][0];
+// 	for(int i = 1; i <= arr[n]; i++){
+// 		if(dp[n+1][i] >= val){
+// 			val = dp[n+1][i];
+// 			idx = i;
+// 		}
+// 	}
+// 	return idx;
+// }
 
-int dp[2001][9001];
+// int dp[2001][9001];
 
-int solve2(int n, int i, int health){
-	if(i == n){
-		return 0;
-	}
-	if(dp[i][health] != -1){
-		return dp[i][health];
-	}
-	if((health + arr[i]) < 0){
-		return solve2(n, i+1, health);
-	}
-	return dp[i][health] = max(1 + solve2(n, i+1, health + arr[i]), solve2(n, i+1, health));
-}
+// int solve2(int n, int i, int health){
+// 	if(i == n){
+// 		return 0;
+// 	}
+// 	if(dp[i][health] != -1){
+// 		return dp[i][health];
+// 	}
+// 	if((health + arr[i]) < 0){
+// 		return solve2(n, i+1, health);
+// 	}
+// 	return dp[i][health] = max(1 + solve2(n, i+1, health + arr[i]), solve2(n, i+1, health));
+// }
 
 // int solve3(int n, int sum, int *dp){
 // 	if(n == 0){
@@ -98,7 +98,7 @@ int32_t main(){
 	// int *dp = new int[n+1][ans1+1];
 	// memset(dp, -1, sizeof dp);
 	// cout<<solve2(n, 0, 0)<<endl;
-	cout<<solve4(n)<<endl;
+	// cout<<solve4(n)<<endl;
 	// sort(arr, arr+n);
 	// int cnt = 0;
 	// int ans = 0;
@@ -114,7 +114,18 @@ int32_t main(){
 	// 	}
 	// }
 	// cout<<cnt<<endl;
-	
+	priority_queue<int, vector<int>, greater<int> > p;
+	int val = 0;
+	for(int i = 1; i <= n; i++){
+		p.push(arr[i]);
+		val += arr[i];
+		while(val < 0 and !p.empty()){
+			int curr = p.top();
+			p.pop();
+			val -= curr;
+		}
+	}
+	cout<<p.size()<<endl;
 
 
 	return 0;
