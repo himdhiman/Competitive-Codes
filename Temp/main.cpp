@@ -1,39 +1,45 @@
 #include<bits/stdc++.h>
-#define int long long
+#define int long long int
 #define MOD 1000000007
 using namespace std;
 
-const int N = 100005;
-int arr[N];
-
-
-int get(int n, int i, int k, int mxOdd, int mxEven) {
-	if (k == 0) {
-		return min(mxOdd, mxEven);
-	}
-	if (n == 0) {
-		return INT_MAX;
-	}
-	int inc;
-	if (i & 1) {
-		inc = get(n - 1, i + 1, k - 1, max(mxOdd, arr[n - 1]), mxEven);
-	} else {
-		inc = get(n - 1, i + 1, k - 1, mxOdd, max(mxEven, arr[n - 1]));
-	}
-
-	int exc = get(n - 1, i, k, mxOdd, mxEven);
-	return min(inc, exc);
-}
-
 void solve() {
-	int n, k;
-	cin >> n >> k;
-	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
+	string s;
+	int k;
+	cin >> k;
+	cin >> s;
+	int n = s.length();
+	unordered_map<char, int> m;
+	int start = 0, end = 0;
+	int ans = 0;
+	while (end < n) {
+		if (m.size() <= k) {
+			if (m.size() == k) {
+				ans++;
+			}
+			if (m.find(s[end]) == m.end()) {
+				m[s[end]]++;
+				end++;
+			} else {
+				while (start < end) {
+					m[s[start]]--;
+					if (m[s[start]] == 0) {
+						m.erase(m.find(s[start]));
+					}
+					start++;
+				}
+			}
+		} else {
+			while (start < end) {
+				m[s[start]]--;
+				if (m[s[start]] == 0) {
+					m.erase(m.find(s[start]));
+				}
+				start++;
+			}
+		}
 	}
-	cout << get(n, (int)0, k, INT_MIN, INT_MIN);
-
-
+	cout << ans << endl;
 	return;
 }
 
@@ -49,8 +55,8 @@ int32_t main() {
 #endif
 
 	int t;
-	t = 1;
 	// cin >> t;
+	t = 1;
 	while (t--) solve();
 
 
